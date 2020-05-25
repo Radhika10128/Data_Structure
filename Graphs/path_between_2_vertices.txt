@@ -1,0 +1,74 @@
+import java.util.*;
+
+class Graph{
+    private int V;
+    private List<List<Integer>> adj;
+    
+    Graph(int v)
+    {
+        V=v;
+        adj=new ArrayList<>(v);
+        for(int i=0;i<v;i++)
+        {
+            adj.add(new LinkedList<>());
+        }
+    }
+    
+    void addEdge(int u,int v)
+    {
+        adj.get(u).add(v);
+    }
+    
+    boolean isReachable(int u,int v)
+    {
+       boolean visited[]=new boolean[V];
+       LinkedList<Integer> queue=new LinkedList<Integer>();
+       visited[u]=true;
+       queue.add(u);
+       Iterator<Integer> i;
+       while(queue.size()!=0)
+       {
+           u=queue.poll();
+           int n;
+           i=adj.get(u).listIterator();
+           while(i.hasNext())
+           {
+               n=i.next();
+               if(n==v)
+               return true;
+               
+               if(!visited[n])
+               {
+                   visited[n]=true;
+                   queue.add(n);
+               }
+           }
+       }
+       return false;
+    }
+    
+    public static void main(String []args)
+    {
+        Graph g = new Graph(4); 
+        g.addEdge(0, 1); 
+        g.addEdge(0, 2); 
+        g.addEdge(1, 2); 
+        g.addEdge(2, 0); 
+        g.addEdge(2, 3); 
+        g.addEdge(3, 3); 
+  
+        int u = 1; 
+        int v = 3; 
+        if (g.isReachable(u, v)) 
+            System.out.println("There is a path from " + u +" to " + v); 
+        else
+            System.out.println("There is no path from " + u +" to " + v);; 
+  
+        u = 3; 
+        v = 1; 
+        if (g.isReachable(u, v)) 
+            System.out.println("There is a path from " + u +" to " + v); 
+        else
+            System.out.println("There is no path from " + u +" to " + v);; 
+    }
+}

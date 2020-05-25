@@ -28,7 +28,7 @@ class Graph{
             int v = itr.next(); 
             if (!visited[i]) 
             { 
-                if (detect(i, visited, v)) 
+                if (detect(v, visited, i)) 
                     return true; 
             } 
             else if (i != parent) 

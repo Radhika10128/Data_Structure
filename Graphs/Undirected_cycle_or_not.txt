@@ -19,13 +19,13 @@ class Graph{
         adj.get(u).add(v);
     }
     
-    private boolean detect(int i,boolean visited[],int parent)
+    private boolean detect(int v,boolean visited[],int parent)
     {
-        visited[i]=true;
+        visited[v]=true;
         Iterator<Integer> itr = adj.get(i).iterator();
          while (itr.hasNext()) 
         { 
-            int v = itr.next(); 
+            int i = itr.next(); 
             if (!visited[i]) 
             { 
                 if (detect(i, visited, v)) 

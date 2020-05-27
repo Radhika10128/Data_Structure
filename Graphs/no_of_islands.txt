@@ -1,0 +1,52 @@
+import java.util.*;
+
+class Islands{
+  static final int r=5,c=5;
+  
+  boolean isSafe(int M[][],int i,int j,boolean visited[][])
+  {
+      return (i>=0) && (i<r) && (j>=0) && (j<c) && (M[i][j] == 1 && !visited[i][j]);
+  }
+  
+  void DFS(int M[][],int i,int j,boolean visited[][])
+  {
+      int row[]=new int[]{-1,-1,-1,0,0,1,1,1};
+      int col[]=new int[]{-1,0,1,-1,1,-1,0,1};
+      visited[i][j]=true;
+      
+      for(int k=0;k<8;k++)
+      {
+          if(isSafe(M,i+row[k],j+col[k],visited))
+          DFS(M,i+row[k],j+col[k],visited);
+      }
+  }
+  
+  int countIslands(int M[][])
+  {
+      boolean visited[][]=new boolean[r][c];
+      int count=0;
+      for(int i=0;i<r;i++)
+      {
+          for(int j=0;j<c;j++)
+          {
+              if(M[i][j]==1 && !visited[i][j])
+              {
+                  DFS(M,i,j,visited);
+                  count++;
+              }
+          }
+      }
+      return count;
+  }
+    
+    public static void main(String []args)
+    {
+         int M[][] = new int[][] { { 1, 1, 0, 0, 0 }, 
+                                  { 0, 1, 0, 0, 1 }, 
+                                  { 1, 0, 0, 1, 1 }, 
+                                  { 0, 0, 0, 0, 0 }, 
+                                  { 1, 0, 1, 0, 1 } }; 
+        Islands I = new Islands(); 
+        System.out.println("Number of islands is: " + I.countIslands(M)); 
+    }
+}
